@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
+		"name": "ElectricalKnowHow API",
+		"description": "API endpoints for the ElectricalKnowHow Spring Boot backend.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/categories/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/categories/{{category_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								"{{category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Categories by Type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/categories/type/{{category_type}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								"type",
+								"{{category_type}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Electrical Basics\",\n    \"description\": \"Basic concepts of electricity\",\n    \"slug\": \"electrical-basics\",\n    \"type\": \"ARTICLE\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Electrical Basics\",\n    \"description\": \"Updated description\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/categories/{{category_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								"{{category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/categories/{{category_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								"{{category_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "category_id",
+			"value": "123e4567-e89b-12d3-a456-426614174000"
+		},
+		{
+			"key": "category_type",
+			"value": "COURSE"
+		}
+	]
+}

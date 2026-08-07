@@ -1,3 +1,23 @@
-Blog link: http://www.electrical-knowhow.com/
-drawio link: https://app.diagrams.net/#G1AyVHgwiQtNnx11MwCL3IBSU9u4NAhBvQ#%7B%22pageId%22%3A%22tAGHn_JoN9Gws7X_6BHF%22%7D
-Claude link: https://claude.ai/chat/8c898d2d-2b3d-48c3-b6ac-231711ffbf7f
+Blog link:
+http://www.electrical-knowhow.com/
+drawio link:
+https://app.diagrams.net/#G1AyVHgwiQtNnx11MwCL3IBSU9u4NAhBvQ#%7B%22pageId%22%3A%22tAGHn_JoN9Gws7X_6BHF%22%7D
+Claude link:
+https://claude.ai/chat/8c898d2d-2b3d-48c3-b6ac-231711ffbf7f
+
+### Next Steps: Migration Plan
+
+**1. Backend (Spring Boot): Complete the Data Layer**
+*   **Finish Course Entity:** Complete the `Course` entity, repository, service, and controller so you can fetch the individual links (e.g. "EE-1: Beginners' Electrical design course").
+*   **Establish Hierarchy API:** Create an endpoint (e.g. in `CategoryController` or `CourseGroupController`) that returns a nested JSON structure. The frontend will need this to build the homepage exactly like the old blog: `Category -> List of CourseGroups -> List of Courses`.
+*   **Implement Articles/Posts:** Create entities and APIs for the actual blog content (the pages you see when you click a course link), including support for rich text and attachments.
+*   **Implement Sidebar Features:** Create APIs for "Popular Posts" and a simple contact form submission handler.
+
+**2. Frontend (Next.js): Scaffold the Progressive Box UI**
+*   **Project Setup:** Initialize the Next.js project inside the `frontend` folder.
+*   **Progressive Drill-Down Navigation:** Instead of the old long vertical list, implement a modern, box/card-based UI:
+    *   *Level 1:* Show main Categories as large interactive cards (e.g., "Electrical Courses", "Inspection Courses").
+    *   *Level 2:* Clicking a Category card navigates to (or expands) a grid of Course Group boxes (e.g., "Electrical Design", "Lighting Design").
+    *   *Level 3:* Clicking a Course Group box reveals the individual Course cards inside it.
+*   **API Integration:** Adjust the frontend data fetching to load these levels step-by-step or use a nested API endpoint to render the grids dynamically.
+*   **Modern Aesthetics:** Use modern CSS (like Tailwind) to give the boxes hover effects, clean typography, and smooth transitions when drilling down through the levels.
