@@ -17,7 +17,7 @@ import java.util.UUID;
 public class CourseGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private UUID courseGroupId;
 
     @Column(nullable = false, unique = true)
     private String slug;
@@ -26,7 +26,7 @@ public class CourseGroup {
     private String name;
 
 
-    private int orderIndex;
+    private Integer orderIndex;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")

@@ -2,6 +2,7 @@ package com.electricalknowhow.backend.service;
 
 import com.electricalknowhow.backend.entity.CourseGroup;
 import com.electricalknowhow.backend.repository.CourseGroupRepository;
+import com.electricalknowhow.backend.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,19 +33,19 @@ public class CourseGroupService {
 
     public CourseGroup updateCourseGroup(UUID id, CourseGroup updateInfo) {
         CourseGroup existing = courseGroupRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Course group not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Course group not found"));
         if (updateInfo.getName() != null) {
             existing.setName(updateInfo.getName());
         }
-        if (existing.getOrderIndex() != 0) {
-            existing.setOrderIndex(existing.getOrderIndex());
+        if (updateInfo.getOrderIndex() != null) {
+            existing.setOrderIndex(updateInfo.getOrderIndex());
         }
         return courseGroupRepository.save(existing);
     }
 
     public void deleteCourseGroup(UUID id) {
         if (!courseGroupRepository.existsById(id)) {
-            throw new RuntimeException("Course group not found");
+            throw new ResourceNotFoundException("Course group not found");
         }
         courseGroupRepository.deleteById(id);
     }

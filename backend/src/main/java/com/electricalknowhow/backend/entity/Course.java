@@ -26,7 +26,7 @@ public class Course {
     @Column(nullable = false, unique = true)
     private String slug;
 
-    private int orderIndex;
+    private Integer orderIndex;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_group_id")

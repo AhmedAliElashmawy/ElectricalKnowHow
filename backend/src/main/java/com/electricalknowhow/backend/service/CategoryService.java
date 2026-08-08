@@ -3,6 +3,7 @@ package com.electricalknowhow.backend.service;
 import com.electricalknowhow.backend.entity.Category;
 import com.electricalknowhow.backend.enums.CategoryType;
 import com.electricalknowhow.backend.repository.CategoryRepository;
+import com.electricalknowhow.backend.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,7 @@ public class CategoryService {
 
     public Category updateCategory(Category updatedInfo, UUID id) {
         Category existingCategory = categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Category not found with id " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + id));
         if (updatedInfo.getName() != null) {
             existingCategory.setName(updatedInfo.getName());
         }
@@ -45,7 +46,7 @@ public class CategoryService {
 
     public void deleteCategory(UUID id) {
         if(!categoryRepository.existsById(id)) {
-            throw new RuntimeException("Category not found with id " + id);
+            throw new ResourceNotFoundException("Category not found with id " + id);
         }
         categoryRepository.deleteById(id);
     }

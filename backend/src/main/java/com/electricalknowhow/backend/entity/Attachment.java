@@ -18,7 +18,7 @@ public class Attachment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private UUID attachmentId;
 
     // Cloudflare R2
     @Column(nullable = false, unique = true)

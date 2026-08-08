@@ -1,171 +1,485 @@
 {
-	"info": {
-		"_postman_id": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
-		"name": "ElectricalKnowHow API",
-		"description": "API endpoints for the ElectricalKnowHow Spring Boot backend.",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Categories",
-			"item": [
-				{
-					"name": "Get All Categories",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/categories/all",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"categories",
-								"all"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Category by ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/categories/{{category_id}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"categories",
-								"{{category_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Categories by Type",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/categories/type/{{category_type}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"categories",
-								"type",
-								"{{category_type}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Category",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Electrical Basics\",\n    \"description\": \"Basic concepts of electricity\",\n    \"slug\": \"electrical-basics\",\n    \"type\": \"ARTICLE\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/categories",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"categories"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Category",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Updated Electrical Basics\",\n    \"description\": \"Updated description\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/categories/{{category_id}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"categories",
-								"{{category_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Category",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/categories/{{category_id}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"categories",
-								"{{category_id}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	],
-	"variable": [
-		{
-			"key": "category_id",
-			"value": "123e4567-e89b-12d3-a456-426614174000"
-		},
-		{
-			"key": "category_type",
-			"value": "COURSE"
-		}
-	]
+  "info": {
+    "name": "ElectricalKnowHow E2E Flow",
+    "description": "API endpoints to populate the backend and verify it works according to the Electrical Courses structure.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Create Category - Electrical Courses",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.environment.set(\"cat_id\", jsonData.categoryId);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Electrical Courses\",\n    \"slug\": \"electrical-courses\",\n    \"description\": \"All courses related to electrical engineering.\",\n    \"type\": \"COURSE\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/categories",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "categories"
+          ]
+        }
+      }
+    },
+    {
+      "name": "2. Create Course Group - First: Electrical Design Courses",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.environment.set(\"cg1_id\", jsonData.courseGroupId);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"First: Electrical Design Courses\",\n    \"slug\": \"first-electrical-design-courses\",\n    \"orderIndex\": 1,\n    \"categoryId\": pm.variables.get(\"cat_id\")\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/course-groups",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "course-groups"
+          ]
+        }
+      }
+    },
+    {
+      "name": "3. Create Course Group - Second: Lighting Design Courses",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.environment.set(\"cg2_id\", jsonData.courseGroupId);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Second: Lighting Design Courses\",\n    \"slug\": \"second-lighting-design-courses\",\n    \"orderIndex\": 2,\n    \"categoryId\": \"{{cat_id}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/course-groups",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "course-groups"
+          ]
+        }
+      }
+    },
+    {
+      "name": "4. Create Course - EE-1: Beginners' Electrical design course",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.environment.set(\"c1_id\", jsonData.courseId);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"EE-1: Beginners' Electrical design course\",\n    \"slug\": \"ee-1-beginners-electrical-design-course\",\n    \"description\": \"Course Description: This first level design course is intended to prepare the target persons with the theoretical and practical electrical design concepts...\",\n    \"orderIndex\": 1,\n    \"courseGroupId\": \"{{cg1_id}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/courses",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "courses"
+          ]
+        }
+      }
+    },
+    {
+      "name": "5. Create Course - EE-2: Basic Electrical design course - Level I",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.environment.set(\"c2_id\", jsonData.courseId);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"EE-2: Basic Electrical design course - Level I\",\n    \"slug\": \"ee-2-basic-electrical-design-course-level-i\",\n    \"description\": \"Level I concepts.\",\n    \"orderIndex\": 2,\n    \"courseGroupId\": \"{{cg1_id}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/courses",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "courses"
+          ]
+        }
+      }
+    },
+    {
+      "name": "6. Create Article - 1- Introduction",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.environment.set(\"a1_id\", jsonData.id);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"1- Introduction\",\n    \"slug\": \"1-introduction\",\n    \"body\": \"In this section we'll defines three basic items, which we use continually without knowing their meaning despite the importance of these items for any designer...\",\n    \"orderIndex\": 1,\n    \"courseId\": \"{{c1_id}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/articles",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "articles"
+          ]
+        }
+      }
+    },
+    {
+      "name": "7. Create Article - 2- Electrical symbols",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.environment.set(\"a2_id\", jsonData.id);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"2- Electrical symbols\",\n    \"slug\": \"2-electrical-symbols\",\n    \"body\": \"Content for electrical symbols...\",\n    \"orderIndex\": 2,\n    \"courseId\": \"{{c1_id}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/articles",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "articles"
+          ]
+        }
+      }
+    },
+    {
+      "name": "8. Create Article - 3- Electrical Abbreviations",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.environment.set(\"a3_id\", jsonData.id);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"3- Electrical Abbreviations\",\n    \"slug\": \"3-electrical-abbreviations\",\n    \"body\": \"Content for electrical abbreviations...\",\n    \"orderIndex\": 3,\n    \"courseId\": \"{{c1_id}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/articles",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "articles"
+          ]
+        }
+      }
+    },
+    {
+      "name": "9. Get All Categories",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/categories/all",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "categories",
+            "all"
+          ]
+        }
+      }
+    },
+    {
+      "name": "10. Delete Article 3",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:8080/api/articles/{{a3_id}}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "articles",
+            "{{a3_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "11. Delete Article 2",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:8080/api/articles/{{a2_id}}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "articles",
+            "{{a2_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "12. Delete Article 1",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:8080/api/articles/{{a1_id}}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "articles",
+            "{{a1_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "13. Delete Course 2",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:8080/api/courses/{{c2_id}}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "courses",
+            "{{c2_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "14. Delete Course 1",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:8080/api/courses/{{c1_id}}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "courses",
+            "{{c1_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "15. Delete Course Group 2",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:8080/api/course-groups/{{cg2_id}}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "course-groups",
+            "{{cg2_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "16. Delete Course Group 1",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:8080/api/course-groups/{{cg1_id}}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "course-groups",
+            "{{cg1_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "17. Delete Category",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:8080/api/categories/{{cat_id}}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "categories",
+            "{{cat_id}}"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": []
 }

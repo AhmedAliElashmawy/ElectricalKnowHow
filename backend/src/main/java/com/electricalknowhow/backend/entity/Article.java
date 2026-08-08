@@ -19,7 +19,7 @@ public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private UUID articleId;
 
     @Column(nullable = false)
     private String title;
@@ -32,7 +32,7 @@ public class Article {
     @Column(nullable = false)
     private String body;
 
-    private int orderIndex;
+    private Integer orderIndex;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
